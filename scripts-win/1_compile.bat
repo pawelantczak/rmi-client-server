@@ -1,13 +1,17 @@
 @echo off
+
 REM Set Java Home
-set JAVA_HOME=c:\Program Files\Java\jdk1.6.0_33
+call 0_set_Env.bat
 
 REM Compile java classes
-"%JAVA_HOME%\bin\javac" -d ..\bin ..\src\*.java
-@cd ..\bin\
+"%JAVA_HOME%\bin\javac" -d ..\bin ..\src\org\antczak\rmi\resources\*.java
+"%JAVA_HOME%\bin\javac" -d ..\bin ..\src\org\antczak\rmi\remote\*.java
+"%JAVA_HOME%\bin\javac" -d ..\bin ..\src\org\antczak\rmi\*.java
+copy ..\src\org\antczak\rmi\resources\*.properties ..\bin\org\antczak\rmi\resources\ >nul
 
 REM Generate RMI Stub
-"%JAVA_HOME%\bin\rmic" WeatherServer$WeatherForecast
-@cd ..\scripts
+cd ..\bin
+"%JAVA_HOME%\bin\rmic" org.antczak.rmi.remote.WeatherForecast
+cd ..\scripts-win
 
 echo Done.
